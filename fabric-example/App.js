@@ -1,28 +1,30 @@
 import React from 'react';
-import { View, Button, SafeAreaView, StyleSheet } from 'react-native';
-import { scrollIntoView } from 'react-native-scrollintoview';
+import { Button, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import ScrollIntoView from 'react-native-scrollintoview';
 
 const ScrollIntoViewButton = (props) => {
   const ref = React.useRef();
 
   return (
-    <View ref={ref}>
+    <ScrollIntoView ref={ref} style={{ paddingVertical: 16, borderWidth: 1 }}>
       <Button
         {...props}
         onPress={(e) => {
-          scrollIntoView(ref.current);
+          ref.current.scrollIntoView({ animated: true });
           props.onPress?.(e);
         }}
       />
-    </View>
+    </ScrollIntoView>
   );
 };
 
 export default () => (
   <SafeAreaView style={styles.container}>
-    {Array.from({ length: 100 }, (_, i) => (
-      <ScrollIntoViewButton key={i} title="Scroll Into View" />
-    ))}
+    <ScrollView>
+      {Array.from({ length: 100 }, (_, i) => (
+        <ScrollIntoViewButton key={i} title="Scroll Into View" />
+      ))}
+    </ScrollView>
   </SafeAreaView>
 );
 

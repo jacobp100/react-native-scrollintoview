@@ -1,97 +1,71 @@
 #import "ScrollIntoView.h"
-
-#include <stdlib.h>
 #import <UIKit/UIKit.h>
-#import <React/RCTUIManager.h>
-#import <React/RCTScrollView.h>
 
 #if RCT_NEW_ARCH_ENABLED
-#import "NativeScrollIntoView.h"
+#include <stdlib.h>
+
+#import <react/renderer/components/ScrollIntoView/ComponentDescriptors.h>
+#import <react/renderer/components/ScrollIntoView/EventEmitters.h>
+#import <react/renderer/components/ScrollIntoView/Props.h>
+#import <react/renderer/components/ScrollIntoView/RCTComponentViewHelpers.h>
+
+#import "RCTFabricComponentsPlugins.h"
+
+using namespace facebook::react;
+
+@interface ScrollIntoView () <RCTScrollIntoViewViewProtocol>
+@end
 #endif
 
 @implementation ScrollIntoView
 
-RCT_EXPORT_MODULE(ScrollIntoView);
-
-@synthesize bridge = _bridge;
-
-+ (BOOL)requiresMainQueueSetup
+#if RCT_NEW_ARCH_ENABLED
++ (ComponentDescriptorProvider)componentDescriptorProvider
 {
-  return NO;
+  return concreteComponentDescriptorProvider<ScrollIntoViewComponentDescriptor>();
 }
 
-- (dispatch_queue_t)methodQueue {
-  return _bridge.uiManager.methodQueue;
-}
+- (instancetype)initWithFrame:(CGRect)frame
+{
+  if (self = [super initWithFrame:frame]) {
+    static const auto defaultProps = std::make_shared<const ScrollIntoViewProps>();
+    _props = defaultProps;
+  }
 
-- (NSArray<UIScrollView *> *)parentScrollViewsOf:(UIView *)element
+  return self;
+}
+#endif
+
+#pragma mark - Native Commands
+
+#if RCT_NEW_ARCH_ENABLED
+- (void)handleCommand:(const NSString *)commandName args:(const NSArray *)args
+{
+  RCTScrollIntoViewHandleCommand(self, commandName, args);
+}
+#endif
+
+- (void)scrollIntoView:(BOOL)animated
 {
   NSMutableArray<UIScrollView *> *scrollviews = [NSMutableArray new];
-  UIView *current = element.superview;
+  UIView *current = self.superview;
   while (current != nil) {
     if ([current isKindOfClass:UIScrollView.class]) {
       [scrollviews addObject:(UIScrollView *)current];
     }
     current = current.superview;
   }
-  return scrollviews;
-}
 
-- (NSArray<UIScrollView *> *)scrollViews:(NSArray<NSNumber *> *)reactTags
-                        fromViewRegistry:(NSDictionary<NSNumber *, UIView *> *)viewRegistry
-{
-  NSMutableArray<UIScrollView *> *scrollviews = [[NSMutableArray alloc]
-                                                 initWithCapacity:reactTags.count];
-
-  [(NSArray *)reactTags
-   enumerateObjectsUsingBlock:^(NSNumber * reactTag, NSUInteger idx, BOOL * _Nonnull stop) {
-    RCTScrollView *scrollview = (RCTScrollView *)viewRegistry[reactTag];
-
-    if (![scrollview isKindOfClass:[RCTScrollView class]]) {
-      RCTLogError(@"Invalid view returned from registry, expecting ScrollView, got: %@", scrollview);
-    } else {
-      [scrollviews addObject:scrollview.scrollView];
-    }
-  }];
-
-  return scrollviews;
-}
-
-RCT_EXPORT_METHOD(scrollToView:(nonnull NSNumber *)reactTag
-                  scrollviews:(NSArray *)scrollviewReactTags
-                  animated:(BOOL)animated)
-{
-  [self.bridge.uiManager
-   addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    UIView *view = viewRegistry[reactTag];
-    NSArray<UIScrollView *> *scrollviews = scrollviewReactTags != nil
-      ? [self scrollViews:scrollviewReactTags fromViewRegistry:viewRegistry]
-      : [self parentScrollViewsOf:view];
-    [scrollviews
-     enumerateObjectsUsingBlock:^(UIScrollView * _Nonnull scrollView, NSUInteger idx, BOOL * _Nonnull stop) {
-      CGRect rect = [view convertRect:view.bounds toView:scrollView];
-      [scrollView scrollRectToVisible:rect animated:animated];
-    }];
-  }];
-}
-
-RCT_EXPORT_METHOD(scrollToRect:(CGRect)rect
-                  scrollviews:(NSArray *)scrollviewReactTags
-                  animated:(BOOL)animated)
-{
-  [self.bridge.uiManager
-   addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    [[self scrollViews:scrollviewReactTags fromViewRegistry:viewRegistry]
-     enumerateObjectsUsingBlock:^(UIScrollView * _Nonnull scrollView, NSUInteger idx, BOOL * _Nonnull stop) {
-      [scrollView scrollRectToVisible:rect animated:animated];
-    }];
-  }];
+  for (UIScrollView *scrollview in scrollviews) {
+    CGRect rect = [self convertRect:self.bounds toView:scrollview];
+    [scrollview scrollRectToVisible:rect animated:animated];
+  }
 }
 
 #if RCT_NEW_ARCH_ENABLED
-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params
+Class<RCTComponentViewProtocol> ScrollIntoViewCls(void)
 {
-    return std::make_shared<facebook::react::NativeScrollIntoViewSpecJSI>(params);
+  return ScrollIntoView.class;
 }
 #endif
 

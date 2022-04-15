@@ -2,7 +2,7 @@
   "name": "react-native-scrollintoview",
   "version": "0.0.1",
   "description": "A WebWorker library for React Native",
-  "main": "src/index.ts",
+  "main": "src/index.tsx",
   "sideEffects": false,
   "files": [
     "src",
@@ -87,8 +87,8 @@
   "codegenConfig": {
     "libraries": [
       {
-        "name": "NativeScrollIntoView",
-        "type": "modules",
+        "name": "ScrollIntoView",
+        "type": "components",
         "jsSrcsDir": "src"
       }
     ]

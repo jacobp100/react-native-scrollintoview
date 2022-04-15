@@ -273,11 +273,7 @@ PODS:
   - React-logger (0.67.2):
     - glog
   - react-native-scrollintoview (0.0.1):
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
-    - React
-    - ReactCommon/turbomodule/core
+    - React-Core
   - React-perflogger (0.67.2)
   - React-RCTActionSheet (0.67.2):
     - React-Core/RCTActionSheetHeaders (= 0.67.2)
@@ -343,8 +339,6 @@ PODS:
     - React-jsi (= 0.67.2)
     - React-logger (= 0.67.2)
     - React-perflogger (= 0.67.2)
-  - RNGestureHandler (2.2.0):
-    - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -404,7 +398,6 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -485,8 +478,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  RNGestureHandler:
-    :path: "../node_modules/react-native-gesture-handler"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -521,7 +512,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 52beb652bbc61201bd70cbe4f0b8edb607e8da4f
   React-jsinspector: 595f76eba2176ebd8817a1fffd47b84fbdab9383
   React-logger: 23de8ea0f44fa00ee77e96060273225607fd4d78
-  react-native-scrollintoview: 681d96b2fd697c7724ced5b5a08b004625a37209
+  react-native-scrollintoview: 2eb0e3b834b5d8c94e9ca5bff495b32905e2ffaf
   React-perflogger: 3c9bb7372493e49036f07a82c44c8cf65cbe88db
   React-RCTActionSheet: 052606483045a408693aa7e864410b4a052f541a
   React-RCTAnimation: 08d4cac13222bb1348c687a0158dfd3b577cdb63
@@ -534,10 +525,9 @@ SPEC CHECKSUMS:
   React-RCTVibration: 99c7f67fba7a5ade46e98e870c6ff2444484f995
   React-runtimeexecutor: 2450b43df7ffe8e805a0b3dcb2abd4282f1f1836
   ReactCommon: d98c6c96b567f9b3a15f9fd4cc302c1eda8e3cf2
-  RNGestureHandler: bf572f552ea324acd5b5464b8d30755b2d8c1de6
   Yoga: 9b6696970c3289e8dea34b3eda93f23e61fb8121
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 5fb60f0905d64b3bb28ca9ba288e1643568c4fa0
+PODFILE CHECKSUM: 33bbb60671fb4b3f748c3b19905e10f0ce07ec98
 
 COCOAPODS: 1.11.2

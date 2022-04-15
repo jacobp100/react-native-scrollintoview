@@ -1,4 +1,4 @@
-package com.WebWorkerexample;
+package com.Example;
 
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +19,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "WebWorkerExample";
+        return "Example";
     }
 
     @Override

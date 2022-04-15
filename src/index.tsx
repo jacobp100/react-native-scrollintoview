@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps } from 'react-native';
+import type { ViewProps } from 'react-native';
 import ScrollIntoViewNativeComponent, {
   Commands,
   // @ts-ignore

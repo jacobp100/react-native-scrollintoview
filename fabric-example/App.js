@@ -6,7 +6,7 @@ const ScrollIntoViewButton = (props) => {
   const ref = React.useRef();
 
   return (
-    <ScrollIntoView ref={ref} style={{ paddingVertical: 16, borderWidth: 1 }}>
+    <ScrollIntoView ref={ref} style={styles.buttonContainer}>
       <Button
         {...props}
         onPress={(e) => {
@@ -32,23 +32,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  contentContainer: {
-    padding: 20,
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  messages: {
-    fontSize: 14,
-    fontWeight: '600',
-    marginTop: 20,
-    marginBottom: 3,
-  },
-  message: {
-    fontSize: 11,
-    fontVariant: ['tabular-nums'],
+  buttonContainer: {
+    paddingVertical: 16,
+    borderWidth: 1,
   },
 });

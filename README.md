@@ -36,6 +36,8 @@ const Example = () => {
 };
 ```
 
+Also exports `AnimatedComponent` if you need to provide animated styles.
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.

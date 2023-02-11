@@ -11,11 +11,29 @@ npm install react-native-scrollintoview
 ## Usage
 
 ```js
-import { ScrollintoviewView } from "react-native-scrollintoview";
+import ScrollIntoView from 'react-native-scrollintoview';
 
-// ...
+const Example = () => {
+  const ref = useRef();
 
-<ScrollintoviewView color="tomato" />
+  const scrollIntoView = () => {
+    ref.current.scrollIntoView({
+      behavior: 'smooth', // set to auto to disable animation
+      inset: {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 20,
+      }, // Add a margin around view when scrolling
+    });
+  };
+
+  return (
+    <ScrollView>
+      <ScrollIntoView ref={ref} />
+    </ScrollView>
+  );
+};
 ```
 
 ## Contributing

@@ -7,7 +7,7 @@
 #import <react/renderer/components/RNScrollintoviewViewSpec/RCTComponentViewHelpers.h>
 
 #import "RCTFabricComponentsPlugins.h"
-#import "Utils.h"
+#import "UIView+ScrollIntoView.h"
 
 using namespace facebook::react;
 
@@ -15,13 +15,11 @@ using namespace facebook::react;
 
 @end
 
-@implementation ScrollintoviewView {
-    UIView * _view;
-}
+@implementation ScrollintoviewView
 
 + (ComponentDescriptorProvider)componentDescriptorProvider
 {
-    return concreteComponentDescriptorProvider<ScrollintoviewViewComponentDescriptor>();
+  return concreteComponentDescriptorProvider<ScrollintoviewViewComponentDescriptor>();
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -29,31 +27,36 @@ using namespace facebook::react;
   if (self = [super initWithFrame:frame]) {
     static const auto defaultProps = std::make_shared<const ScrollintoviewViewProps>();
     _props = defaultProps;
-
-    _view = [[UIView alloc] init];
-
-    self.contentView = _view;
   }
 
   return self;
 }
 
-- (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps
+#pragma mark - Native Commands
+
+- (void)handleCommand:(const NSString *)commandName
+                 args:(const NSArray *)args
 {
-    const auto &oldViewProps = *std::static_pointer_cast<ScrollintoviewViewProps const>(_props);
-    const auto &newViewProps = *std::static_pointer_cast<ScrollintoviewViewProps const>(props);
+  RCTScrollintoviewViewHandleCommand(self, commandName, args);
+}
 
-    if (oldViewProps.color != newViewProps.color) {
-        NSString * colorToConvert = [[NSString alloc] initWithUTF8String: newViewProps.color.c_str()];
-        [_view setBackgroundColor: [Utils hexStringToColor:colorToConvert]];
-    }
-
-    [super updateProps:props oldProps:oldProps];
+- (void)scrollIntoView:(double)insetTop
+             insetLeft:(double)insetLeft
+           insetBottom:(double)insetBottom
+            insetRight:(double)insetRight
+              animated:(BOOL)animated
+{
+  [UIView scrollIntoView:self
+                insetTop:insetTop
+               insetLeft:insetLeft
+             insetBottom:insetBottom
+              insetRight:insetRight
+                animated:animated];
 }
 
 Class<RCTComponentViewProtocol> ScrollintoviewViewCls(void)
 {
-    return ScrollintoviewView.class;
+  return ScrollintoviewView.class;
 }
 
 @end

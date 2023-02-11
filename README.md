@@ -5,13 +5,13 @@ Scolls a parent ScrollView to ensure the view is visible
 ## Installation
 
 ```sh
-npm install react-native-scrollintoview
+npm install @jacobp100/react-native-scrollintoview
 ```
 
 ## Usage
 
 ```js
-import ScrollIntoView from 'react-native-scrollintoview';
+import ScrollIntoView from '@jacobp100/react-native-scrollintoview';
 
 const Example = () => {
   const ref = useRef();

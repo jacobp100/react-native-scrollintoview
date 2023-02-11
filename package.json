@@ -1,5 +1,5 @@
 {
-  "name": "react-native-scrollintoview",
+  "name": "@jacobp100/react-native-scrollintoview",
   "version": "0.1.0",
   "description": "test",
   "main": "lib/commonjs/index",
